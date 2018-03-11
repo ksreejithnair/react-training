@@ -8,7 +8,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducer';
 import thunk from 'redux-thunk';
-import {fetchCategories,receiveCategories} from './actions'
+import {fetchCategories,fetchPostsAction} from './actions'
 
 //NEW
 
@@ -23,10 +23,15 @@ import {fetchCategories,receiveCategories} from './actions'
 
 const store = createStore(reducer, applyMiddleware(thunk));
 store.dispatch(fetchCategories());
+store.dispatch(fetchPostsAction());
 //console.log(store.getState());
 
 ReactDOM.render(
-	<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,
+	<Provider store={store}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</Provider>,
 	 document.getElementById('root')
 );
 registerServiceWorker();

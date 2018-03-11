@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux';
+import { normalizePosts } from '../utils/utils.js'
 
 import {
-	ADD_RECIPE,
-	REMOVE_FROM_CALANDER,
-	RECEIVE_CATEGORIES
+	RECEIVE_CATEGORIES,
+	RECEIVE_POSTS,
+	SORT_POSTS
 } from '../actions/index.js'
 
+//reducer for categories
 function categories(state={},action) {
 	const {categories} = action;
-console.log(action);
 	switch(action.type) {
 		case RECEIVE_CATEGORIES:
 			let result = categories.reduce((result,category)=> {
@@ -21,6 +22,46 @@ console.log(action);
 	}
 }
 
+//Reducer for posts
+function posts (state={}, action) {
+	const {posts,sortType, sortOrder} = action;
+
+	switch(action.type) {
+		case RECEIVE_POSTS:
+			let result =normalizePosts(posts);
+			return result;
+		case SORT_POSTS:
+			console.log('sort me');
+			console.log(state);
+			posts.sort((post,nextPost)=>{
+				switch(sortType){
+					case 'vote':
+					console.log(sortOrder);
+						if(post.voteScore > nextPost.voteScore) {
+							return sortOrder === "ASC"?1:-1;
+						}
+						if(post.voteScore < nextPost.voteScore) {
+							return sortOrder === "ASC"?-1:1;;
+						}
+						return 0;
+					case 'time':
+						if(post.timestamp > nextPost.timestamp) {
+							return sortOrder === "ASC"?1:-1;
+						}
+						if(post.timestamp < nextPost.timestamp) {
+							return sortOrder === "ASC"?-1:1;;
+						}
+						return 0;
+					default:
+						return 0;
+				}
+			});
+			return normalizePosts(posts);
+		default:
+			return state;
+	}
+}
+
 //NEW
 
-export default combineReducers({categories})
+export default combineReducers({categories,posts})
