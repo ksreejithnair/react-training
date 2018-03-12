@@ -7,7 +7,8 @@ import {
 	RECEIVE_POSTS,
 	SORT_POSTS,
 	FETCH_POST,
-	GET_POST_COMMENTS
+	GET_POST_COMMENTS,
+	UPDATE_COMMENT
 } from '../actions/index.js'
 
 //reducer for categories
@@ -26,11 +27,16 @@ function categories(state={},action) {
 }
 
 function comments(state={},action) {
-	const {comments} = action;
+	const {comments,comment} = action;
 	switch(action.type) {
 		case GET_POST_COMMENTS:
-			console.log(comments);
+			console.log(normalizeComments(comments));
 			return normalizeComments(comments);
+		case UPDATE_COMMENT:
+			return {
+				...state,
+				[comment.id]:comment
+			};
 		default:
 			return state;
 	}

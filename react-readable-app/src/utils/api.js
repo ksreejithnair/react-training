@@ -62,3 +62,15 @@ export const deleteCommentApi = (commentId) =>{
 		.then((data)=>{return data})
 }
 
+export const updateCommentApi = (commentBody,commentId) => {
+	return fetch(domain+'/comments/'+commentId,{
+		method: 'PUT',
+		headers: {
+			'Authorization': 'some',
+    	'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(commentBody)
+	}).then((res)=>{return res.json()})
+		.then((data)=>{return data})
+}
+

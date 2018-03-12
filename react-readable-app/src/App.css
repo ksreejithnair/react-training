@@ -122,8 +122,12 @@
   display: block;
 }
 
-.margin5 {
+.margin5{
   margin: 5px;
+}
+
+.marginRight5 {
+  margin-right: 5px;
 }
 
 .addCommentForm label {

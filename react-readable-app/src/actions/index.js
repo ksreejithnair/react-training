@@ -4,13 +4,15 @@ import {fetchAllCategories,
 				fetchPostCommentsApi,
 				fetchPostApi,
 				addCommentApi,
-				deleteCommentApi} from '../utils/api.js'
+				deleteCommentApi,
+				updateCommentApi} from '../utils/api.js'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const SORT_POSTS = 'SORT_POSTS';
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
 export const FETCH_POST = 'FETCH_POST';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -38,6 +40,10 @@ export const getPostComments = comments => ({
 	type: GET_POST_COMMENTS,
 	comments
 });
+export const updateCommentAction = comment => ({
+	type: UPDATE_COMMENT,
+	comment
+})
 
 export const fetchPost = (postId) => (dispatch) => {
 	return fetchPostApi(postId).then((data)=>dispatch(fetchPostAction(data)))
@@ -58,6 +64,10 @@ export const addComment = (comment) => (dispatch) =>{
 
 export const deleteComment = (commentId) =>(dispatch)=> {
 	return deleteCommentApi(commentId).then((data)=>{dispatch(fetchPostComments(data.parentId))})
+}
+
+export const updateComment = (commentBody,commentId) => (dispatch) => {
+	return updateCommentApi(commentBody,commentId).then((data)=>{dispatch(updateCommentAction(data))})
 }
 
 
