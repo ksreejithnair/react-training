@@ -80,3 +80,65 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
+.postContainer {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #aee;
+  padding: 25px;
+}
+
+.floatRight {
+  float:right;
+}
+
+.commentContainer {
+  border: 1px solid #e1f;
+  border-radius: 20px;
+  background-color: #eda;
+  padding: 0 20px;
+}
+
+.commentFooter {
+  background-color: #dce;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+.operator {
+  border: 1px solid black;
+    width: 25px;
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.addCommentForm {
+  border: 1px solid #e1f;
+  border-radius: 20px;
+  background-color: #85a;
+  padding: 0 20px;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.margin5 {
+  margin: 5px;
+}
+
+.addCommentForm label {
+  display: inline-block;
+  width: 150px;
+  margin-right: 30px;
+}
+
+.addCommentForm input {
+  height: 20px;
+}
+
+.addCommentForm textarea {
+  height: 75px;
+  width: 300px;
+}
+
+

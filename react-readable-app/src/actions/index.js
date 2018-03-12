@@ -1,11 +1,16 @@
 //NEW
-import {fetchAllCategories, fetchPosts} from '../utils/api.js'
+import {fetchAllCategories,
+				fetchPosts,
+				fetchPostCommentsApi,
+				fetchPostApi,
+				addCommentApi,
+				deleteCommentApi} from '../utils/api.js'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const ADD_RECIPE = 'ADD_RECIPE';
-export const REMOVE_FROM_CALANDER = 'REMOVE_FROM_CALANDER';
 export const SORT_POSTS = 'SORT_POSTS';
+export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
+export const FETCH_POST = 'FETCH_POST';
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -24,26 +29,37 @@ export const receivePosts = posts => ({
 	posts
 });
 
+export const fetchPostAction = post => ({
+	type: FETCH_POST,
+	post
+})
+
+export const getPostComments = comments => ({
+	type: GET_POST_COMMENTS,
+	comments
+});
+
+export const fetchPost = (postId) => (dispatch) => {
+	return fetchPostApi(postId).then((data)=>dispatch(fetchPostAction(data)))
+}
+
+export const fetchPostComments = (postId) => (dispatch) => {
+	return fetchPostCommentsApi(postId).then((data)=>{dispatch(getPostComments(data))})
+}
+
 export const fetchPostsAction = (category) => (dispatch) => {
-	return fetchPosts(category).then((posts)=>{console.log(posts);dispatch(receivePosts(posts))})
+	return fetchPosts(category).then((posts)=>{dispatch(receivePosts(posts))})
 }
 
-export function addRecipe({day, recipe, meal}) {
-	return {
-		type: ADD_RECIPE,
-		recipe,
-		day,
-		meal
-	}
+//Assuming success always. Also instead of fetching everythign may be I can only fetch new comment and update the store.
+export const addComment = (comment) => (dispatch) =>{
+	return addCommentApi(comment).then((data)=>{console.log(data);const postId = data.parentId;dispatch(fetchPost(postId));dispatch(fetchPostComments(postId))})
 }
 
-export function removeFromCalendar({day, meal}){
-	return {
-		type: REMOVE_FROM_CALANDER,
-		day,
-		meal
-	}
+export const deleteComment = (commentId) =>(dispatch)=> {
+	return deleteCommentApi(commentId).then((data)=>{dispatch(fetchPostComments(data.parentId))})
 }
+
 
 export function sortPosts (posts,sortType,sortOrder) {
 	return {

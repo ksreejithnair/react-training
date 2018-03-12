@@ -27,11 +27,14 @@ store.dispatch(fetchPostsAction());
 //console.log(store.getState());
 
 ReactDOM.render(
+
+
 	<Provider store={store}>
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>
-	</Provider>,
+	</Provider>
+	,
 	 document.getElementById('root')
 );
 registerServiceWorker();

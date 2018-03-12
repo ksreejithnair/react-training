@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import { normalizePosts } from '../utils/utils.js'
+import { normalizePosts,
+				normalizeComments } from '../utils/utils.js'
 
 import {
 	RECEIVE_CATEGORIES,
 	RECEIVE_POSTS,
-	SORT_POSTS
+	SORT_POSTS,
+	FETCH_POST,
+	GET_POST_COMMENTS
 } from '../actions/index.js'
 
 //reducer for categories
@@ -22,21 +25,32 @@ function categories(state={},action) {
 	}
 }
 
+function comments(state={},action) {
+	const {comments} = action;
+	switch(action.type) {
+		case GET_POST_COMMENTS:
+			console.log(comments);
+			return normalizeComments(comments);
+		default:
+			return state;
+	}
+}
+
 //Reducer for posts
 function posts (state={}, action) {
-	const {posts,sortType, sortOrder} = action;
+	const {posts,sortType, sortOrder, post} = action;
 
 	switch(action.type) {
 		case RECEIVE_POSTS:
 			let result =normalizePosts(posts);
 			return result;
 		case SORT_POSTS:
-			console.log('sort me');
-			console.log(state);
+			//console.log('sort me');
+			//console.log(state);
 			posts.sort((post,nextPost)=>{
 				switch(sortType){
 					case 'vote':
-					console.log(sortOrder);
+					//console.log(sortOrder);
 						if(post.voteScore > nextPost.voteScore) {
 							return sortOrder === "ASC"?1:-1;
 						}
@@ -57,6 +71,9 @@ function posts (state={}, action) {
 				}
 			});
 			return normalizePosts(posts);
+		case FETCH_POST:
+			console.log(state);
+			return {...state,[post.id]:post};
 		default:
 			return state;
 	}
@@ -64,4 +81,4 @@ function posts (state={}, action) {
 
 //NEW
 
-export default combineReducers({categories,posts})
+export default combineReducers({categories,posts,comments})

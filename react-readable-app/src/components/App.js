@@ -5,7 +5,8 @@ import CategoryList from './CategoryList.js';
 import PostsList from './PostsList.js';
 import {connect} from 'react-redux';
 import {SORT_TYPE, sortPosts} from '../actions'
-import {Switch, Route} from 'react-router-dom'
+import {withRouter,Switch, Route} from 'react-router-dom'
+import PostDetails from './PostDetails.js'
 
 //NEW
 class App extends Component {
@@ -16,30 +17,46 @@ class App extends Component {
   	//console.log(this.props);
   	return (
       <div className="App">
-      	<div className="header">
-      		<div className="right-aligned menu">
-      			Sort By Vote
-      			<div className="menuContent">
-	      			<span onClick={()=>this.sortPosts(this.props.posts,'vote','ASC')}>vote Asc</span>
-	      			<span onClick={()=>this.sortPosts(this.props.posts,'vote', 'DSC')}>Vote Dsc</span>
-	      		</div>
-      		</div>
-      		<div className="right-aligned menu">
-      			Sort By Time
-      			<div className="menuContent">
-	      			<span onClick={()=>this.sortPosts(this.props.posts,'time','ASC')}>vote Asc</span>
-	      			<span onClick={()=>this.sortPosts(this.props.posts,'time', 'DSC')}>Vote Dsc</span>
-	      		</div>
-      		</div>
-      	</div>
-      	<div className="AppBody">
-		      <div className="AppSidebar">
-		      	<CategoryList/>
-		      </div>
-		      <div className="AppRBody">
-		      	<PostsList/>
-		      </div>
-	      </div>
+      	<Switch>
+      		<Route path="/" exact render={()=>{
+      			return <div>
+      				<div className="header">
+			      		<div className="right-aligned menu">
+			      			Sort By Vote
+			      			<div className="menuContent">
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'vote','ASC')}>vote Asc</span>
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'vote', 'DSC')}>Vote Dsc</span>
+				      		</div>
+			      		</div>
+			      		<div className="right-aligned menu">
+			      			Sort By Time
+			      			<div className="menuContent">
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'time','ASC')}>vote Asc</span>
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'time', 'DSC')}>Vote Dsc</span>
+				      		</div>
+			      		</div>
+			      	</div>
+			      	<div className="AppBody">
+					      <div className="AppSidebar">
+					      	<CategoryList/>
+					      </div>
+					      <div className="AppRBody">
+					      	<PostsList/>
+					      </div>
+				    	</div>
+				  	</div>
+      		}}/>
+      		<Route path="/post/:id" render={({match, history})=>{
+      			return <div>
+      				<div className="header">
+			      		<div className="right-aligned menu" onClick={()=>{history.push('/')}}>
+			      			Back
+			      		</div>
+			      	</div>
+			      	<PostDetails postId={match.params.id}/>
+			      </div>
+      		}}/>
+	      </Switch>
       </div>
     );
   }
@@ -52,4 +69,4 @@ const mapStateToProps = ({categories, posts})=>({
 		categories: Object.keys(categories).map((categoryKey)=>(categories[categoryKey]))
 })
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
