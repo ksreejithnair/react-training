@@ -16,12 +16,13 @@ class AddCommentForm extends Component {
 		value.parentId = postId;
 		value.timestamp = new Date().getTime();
 		this.props.dispatch(addComment(value));
+		this.myFormRef.reset();
 		console.log(value);
 	}
 
 	render() {
 		const {postId} = this.props;
-		return <form className="addCommentForm" onSubmit={(e)=>this.handleSubmit(e,postId)}>
+		return <form className="addCommentForm" ref={(el) => this.myFormRef = el} onSubmit={(e)=>this.handleSubmit(e,postId)}>
 					<h4>Add your comments</h4>
 					<div>
 						<div className="margin5"><label>Enter Name</label><input type="text" name="author" placeholder="Enter name"/></div>

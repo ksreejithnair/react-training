@@ -11,6 +11,7 @@ class Post extends Component {
 					<div>{post.author}</div>
 					<div>{post.body}</div>
 					<div>Vote Score{post.voteScore}</div>
+					<div>{post.commentCount}</div>
 				</div>
 		}
 	}

@@ -8,7 +8,8 @@ import {
 	SORT_POSTS,
 	FETCH_POST,
 	GET_POST_COMMENTS,
-	UPDATE_COMMENT
+	UPDATE_COMMENT,
+	UPDATE_COMMENT_VOTE
 } from '../actions/index.js'
 
 //reducer for categories
@@ -37,6 +38,10 @@ function comments(state={},action) {
 				...state,
 				[comment.id]:comment
 			};
+		//We can use above action to update vote but doing this for scalability
+		case UPDATE_COMMENT_VOTE:
+			return {...state,
+							[comment.id]:comment};
 		default:
 			return state;
 	}

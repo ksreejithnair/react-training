@@ -5,7 +5,8 @@ import {fetchAllCategories,
 				fetchPostApi,
 				addCommentApi,
 				deleteCommentApi,
-				updateCommentApi} from '../utils/api.js'
+				updateCommentApi,
+				updateCommentVoteApi} from '../utils/api.js'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -13,6 +14,7 @@ export const SORT_POSTS = 'SORT_POSTS';
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
 export const FETCH_POST = 'FETCH_POST';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const UPDATE_COMMENT_VOTE = 'UPDATE_COMMENT_VOTE';
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -43,6 +45,10 @@ export const getPostComments = comments => ({
 export const updateCommentAction = comment => ({
 	type: UPDATE_COMMENT,
 	comment
+});
+export const updateCommentVoteAction = comment => ({
+	type: UPDATE_COMMENT_VOTE,
+	comment
 })
 
 export const fetchPost = (postId) => (dispatch) => {
@@ -59,15 +65,19 @@ export const fetchPostsAction = (category) => (dispatch) => {
 
 //Assuming success always. Also instead of fetching everythign may be I can only fetch new comment and update the store.
 export const addComment = (comment) => (dispatch) =>{
-	return addCommentApi(comment).then((data)=>{console.log(data);const postId = data.parentId;dispatch(fetchPost(postId));dispatch(fetchPostComments(postId))})
+	return addCommentApi(comment).then((data)=>{const postId = data.parentId;dispatch(fetchPost(postId));dispatch(fetchPostComments(postId))})
 }
 
 export const deleteComment = (commentId) =>(dispatch)=> {
-	return deleteCommentApi(commentId).then((data)=>{dispatch(fetchPostComments(data.parentId))})
+	return deleteCommentApi(commentId).then((data)=>{const postId = data.parentId;dispatch(fetchPost(postId));dispatch(fetchPostComments(postId))})
 }
 
 export const updateComment = (commentBody,commentId) => (dispatch) => {
 	return updateCommentApi(commentBody,commentId).then((data)=>{dispatch(updateCommentAction(data))})
+}
+
+export const updateCommentVote = (commentId,option) => (dispatch) => {
+	return updateCommentVoteApi(commentId, option).then((data)=>{dispatch(updateCommentVoteAction(data))})
 }
 
 

@@ -74,3 +74,15 @@ export const updateCommentApi = (commentBody,commentId) => {
 		.then((data)=>{return data})
 }
 
+export const updateCommentVoteApi = (commentId, option) => {
+	return fetch(domain+'/comments/'+commentId,{
+		method: 'POST',
+		headers: {
+			'Authorization': 'some',
+    	'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(option)
+	}).then((res)=>{return res.json()})
+		.then((data)=>{return data})
+}
+

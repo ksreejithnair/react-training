@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import{deleteComment,
-				updateComment} from '../actions';
+			updateComment,
+			updateCommentVote} from '../actions';
 import PropTypes from 'prop-types';
 import serializeForm from 'form-serialize';
 
@@ -23,6 +24,10 @@ class Comment extends Component {
 		this.props.dispatch(updateComment(value,comment.id));
 		this.setState({listOrEdit:'list'});
 	}
+	updateVote = (commentId,upOrDown) =>{
+		const option = {'option':upOrDown};
+		this.props.dispatch(updateCommentVote(commentId,option));
+	}
 	render() {
 		const {comment} = this.props;
 		const {listOrEdit} = this.state;
@@ -41,7 +46,10 @@ class Comment extends Component {
 
 							</div>
 							<div className="commentFooter">
-								Vote Score<span className="operator">-</span>{comment.voteScore}<span className="operator">+</span>
+								Vote Score
+								<span className="operator" onClick={()=>this.updateVote(comment.id,'downVote')}>-</span>
+									{comment.voteScore}
+								<span className="operator" onClick={()=>this.updateVote(comment.id,'upVote')}>+</span>
 								<div className="floatRight">
 									<button className="marginRight5" onClick={()=>this.setState({listOrEdit:true})}>Edit</button>
 									<button onClick={this.deleteComment}>Delete</button>
