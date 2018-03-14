@@ -51,8 +51,8 @@ class Comment extends Component {
 									{comment.voteScore}
 								<span className="operator" onClick={()=>this.updateVote(comment.id,'upVote')}>+</span>
 								<div className="floatRight">
-									<button className="marginRight5" onClick={()=>this.setState({listOrEdit:true})}>Edit</button>
-									<button onClick={this.deleteComment}>Delete</button>
+									<button className="marginRight5 smallButton" onClick={()=>this.setState({listOrEdit:true})}>Edit</button>
+									<button className="smallButton" onClick={this.deleteComment}>Delete</button>
 								</div>
 							</div>
 						</div>

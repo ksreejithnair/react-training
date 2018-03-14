@@ -9,7 +9,8 @@ import {
 	FETCH_POST,
 	GET_POST_COMMENTS,
 	UPDATE_COMMENT,
-	UPDATE_COMMENT_VOTE
+	UPDATE_COMMENT_VOTE,
+	ADD_POST
 } from '../actions/index.js'
 
 //reducer for categories
@@ -55,6 +56,11 @@ function posts (state={}, action) {
 		case RECEIVE_POSTS:
 			let result =normalizePosts(posts);
 			return result;
+		case ADD_POST:
+			return {
+				...state,
+				[post.id]:post
+			}
 		case SORT_POSTS:
 			//console.log('sort me');
 			//console.log(state);

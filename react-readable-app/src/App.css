@@ -30,16 +30,20 @@
 
 .AppSidebar {
   border: 1px solid red;
-  display: inline-block;
-  width:20%;
+  background-color: lightgray;
+    -webkit-flex: 1;
+    flex: 1;
 }
 .AppBody {
-
+  display: -webkit-flex;
+    display: flex;
+    height: 100%;
 }
 .AppRBody {
-  display: inline-block;
 
   border: 1px solid green;
+   -webkit-flex: 5;
+    flex: 5;
 }
 /*CategoryList*/
 .category {
@@ -144,5 +148,34 @@
   height: 75px;
   width: 300px;
 }
+
+  .Modal {
+    position: absolute;
+    top: 140px;
+    left: 440px;
+    right: 440px;
+    bottom: 40px;
+    background-color: papayawhip;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+  }
+
+button {
+  width: 200px;
+  height: 35px
+}
+
+button.smallButton {
+  width: 60px;
+  height:20px;
+}
+
+
 
 

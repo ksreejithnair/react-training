@@ -7,11 +7,13 @@ class PostsList extends Component {
 
   render() {
   	const {posts} =this.props;
-  	//console.log(categories);
+  	//console.log(posts);
   	return (
   		<div>
       	{posts.map((post)=>{
-      		return <div className="post.id" key={post.author}>{`Author${post.author}Time${new Date(post.timestamp)}`}</div>
+      		return <div key={post.id}>
+          {post.body}
+          </div>
       	})}
       </div>
     );

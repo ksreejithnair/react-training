@@ -6,7 +6,8 @@ import {fetchAllCategories,
 				addCommentApi,
 				deleteCommentApi,
 				updateCommentApi,
-				updateCommentVoteApi} from '../utils/api.js'
+				updateCommentVoteApi,
+				addPostApi} from '../utils/api.js'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -15,6 +16,7 @@ export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
 export const FETCH_POST = 'FETCH_POST';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPDATE_COMMENT_VOTE = 'UPDATE_COMMENT_VOTE';
+export const ADD_POST = 'ADD_POST';
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -51,6 +53,11 @@ export const updateCommentVoteAction = comment => ({
 	comment
 })
 
+export const addPostAction = post =>({
+	type: ADD_POST,
+	post
+})
+
 export const fetchPost = (postId) => (dispatch) => {
 	return fetchPostApi(postId).then((data)=>dispatch(fetchPostAction(data)))
 }
@@ -78,6 +85,10 @@ export const updateComment = (commentBody,commentId) => (dispatch) => {
 
 export const updateCommentVote = (commentId,option) => (dispatch) => {
 	return updateCommentVoteApi(commentId, option).then((data)=>{dispatch(updateCommentVoteAction(data))})
+}
+
+export const addPost = (post) => (dispatch) =>{
+	return addPostApi(post).then((data)=>{dispatch(addPostAction(data))});
 }
 
 
