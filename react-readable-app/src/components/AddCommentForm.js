@@ -17,7 +17,7 @@ class AddCommentForm extends Component {
 		value.timestamp = new Date().getTime();
 		this.props.dispatch(addComment(value));
 		this.myFormRef.reset();
-		console.log(value);
+//		console.log(value);
 	}
 
 	render() {

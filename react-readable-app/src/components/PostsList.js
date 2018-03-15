@@ -1,7 +1,8 @@
 //NEW
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
+import {Link} from 'react-router-dom';
+import Post from './Post.js'
 
 class PostsList extends Component {
 
@@ -11,9 +12,10 @@ class PostsList extends Component {
   	return (
   		<div>
       	{posts.map((post)=>{
-      		return <div key={post.id}>
-          {post.body}
-          </div>
+      		return <Link to={`/post/${post.id}`} activeStyle={{ color: 'yellow' }}>
+          <div key={post.id}>
+            <Post post={post}/>
+          </div></Link>
       	})}
       </div>
     );

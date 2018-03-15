@@ -14,7 +14,7 @@ class AddPost extends Component {
 		value.id= uuidv4();
 		this.props.dispatch(addPost(value));
 		this.closeAddPostModal();
-		console.log(value);
+//		console.log(value);
 	}
 
 	closeAddPostModal = () =>{
@@ -22,14 +22,14 @@ class AddPost extends Component {
 	}
 
 	render(){
-		const {categories} = this.props;
+		const {categories, post} = this.props;
 		return <div>
-			<div className="modalHeader"><button className="smallButton" onClick={this.closeAddPostModal}>close</button></div>
+			<div className="modalHeader"><button className="smallButton floatRight" onClick={this.closeAddPostModal}>close</button></div>
 	    	<form onSubmit={(e)=>this.addPostSelf(e)}>
-	    		<p><label>Name:</label><input type="text" name="author"/></p>
-	    		<p><label>Title:</label><input type="text" name="title"/></p>
-	    		<p><label>Content:</label><textarea name="body"></textarea></p>
-	    		<p><label>Category:</label><select name="category">
+	    		<p><label>Name:</label><input type="text" name="author" defaultValue={post.author}/></p>
+	    		<p><label>Title:</label><input type="text" name="title" defaultValue={post.title}/></p>
+	    		<p><label>Content:</label><textarea name="body" className="postBodyTextArea" defaultValue={post.body}></textarea></p>
+	    		<p><label>Category:</label><select name="category" defaultValue={post.category}>
 	    			{categories.map((category)=>(<option key={category.name} value={category.name}>{category.name}</option>))}
 	    		</select></p>
 	    		<p><button>Save</button></p>
@@ -40,7 +40,8 @@ class AddPost extends Component {
 }
 
 AddPost.propTypes = {
-	onCloseModal: PropTypes.func.isRequired
+	onCloseModal: PropTypes.func.isRequired,
+	post: PropTypes.object.isRequired
 }
 
 const mapStatetoProps = ({categories}) =>{

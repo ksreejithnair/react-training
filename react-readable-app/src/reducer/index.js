@@ -10,7 +10,8 @@ import {
 	GET_POST_COMMENTS,
 	UPDATE_COMMENT,
 	UPDATE_COMMENT_VOTE,
-	ADD_POST
+	ADD_POST,
+	UPDATE_POST_VOTE
 } from '../actions/index.js'
 
 //reducer for categories
@@ -32,7 +33,7 @@ function comments(state={},action) {
 	const {comments,comment} = action;
 	switch(action.type) {
 		case GET_POST_COMMENTS:
-			console.log(normalizeComments(comments));
+//			console.log(normalizeComments(comments));
 			return normalizeComments(comments);
 		case UPDATE_COMMENT:
 			return {
@@ -89,8 +90,13 @@ function posts (state={}, action) {
 			});
 			return normalizePosts(posts);
 		case FETCH_POST:
-			console.log(state);
+//			console.log(state);
 			return {...state,[post.id]:post};
+		case UPDATE_POST_VOTE:
+			return {
+				...state,
+				[post.id]:post
+			}
 		default:
 			return state;
 	}

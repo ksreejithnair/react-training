@@ -86,7 +86,7 @@
 }
 .postContainer {
   border: 1px solid #eee;
-  border-radius: 10px;
+  border-radius: 30px;
   background-color: #aee;
   padding: 25px;
 }
@@ -108,6 +108,10 @@
   line-height: 25px;
   text-align: center;
 }
+.postFooter {
+  background-color: initial;
+}
+
 .operator {
   border: 1px solid black;
     width: 25px;
@@ -176,6 +180,20 @@ button.smallButton {
   height:20px;
 }
 
+a:link { color: black; }
+a:visited { color: black; }
+a {
+  text-decoration: none;
+}
 
+.postBodyTextArea {
+  width: 350px;
+  height: 90px;
+}
+
+.commentTextArea {
+  width: 95%;
+  height: 60px;
+}
 
 

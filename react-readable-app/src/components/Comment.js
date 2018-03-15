@@ -40,7 +40,8 @@ class Comment extends Component {
 								<h4>{comment.title}</h4>
 								{listOrEdit === 'list'&&<p>{comment.body}</p>}
 								{(listOrEdit!=='list')&&(<form onSubmit={(e)=>this.handleSubmit(e,comment)}>
-											<textarea defaultValue={comment.body} name="body"></textarea><button>Update Comment</button>
+											<textarea defaultValue={comment.body} name="body" className="commentTextArea">
+											</textarea><button>Update Comment</button>
 										</form>)
 								}
 
