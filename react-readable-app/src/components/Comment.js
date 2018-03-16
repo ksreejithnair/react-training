@@ -13,7 +13,7 @@ class Comment extends Component {
 		listOrEdit: 'list'
 	}
 
-	//TODO: need to move all dispatch to mapdispatchToState in connect
+	//TODO: need to move all dispatch to mapDispatchToState in connect
 	deleteComment = ()=>{
 		this.props.dispatch(deleteComment(this.props.comment.id))
 	}
@@ -33,8 +33,8 @@ class Comment extends Component {
 		const {listOrEdit} = this.state;
 
 		return <div className="commentContainer">
-							<div><span>{comment.author} says</span>
-							<span className="floatRight">{comment.timestamp}</span></div>
+							<div><span><strong>{comment.author}</strong> says</span>
+							<span className="floatRight">{new Date(comment.timestamp).toLocaleString('en-US')}</span></div>
 
 							<div className="commentBody">
 								<h4>{comment.title}</h4>
@@ -42,6 +42,7 @@ class Comment extends Component {
 								{(listOrEdit!=='list')&&(<form onSubmit={(e)=>this.handleSubmit(e,comment)}>
 											<textarea defaultValue={comment.body} name="body" className="commentTextArea">
 											</textarea><button>Update Comment</button>
+											<button onClick={(e)=>{e.preventDefault();this.setState({listOrEdit:'list'})}}>Cancel</button>
 										</form>)
 								}
 
@@ -52,7 +53,7 @@ class Comment extends Component {
 									{comment.voteScore}
 								<span className="operator" onClick={()=>this.updateVote(comment.id,'upVote')}>+</span>
 								<div className="floatRight">
-									<button className="marginRight5 smallButton" onClick={()=>this.setState({listOrEdit:true})}>Edit</button>
+									<button className="marginRight5 smallButton" onClick={()=>this.setState({listOrEdit:'edit'})}>Edit</button>
 									<button className="smallButton" onClick={this.deleteComment}>Delete</button>
 								</div>
 							</div>

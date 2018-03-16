@@ -1,17 +1,19 @@
 //NEW
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-
+/**
+ *@description - This component will list all categories on main page.
+ */
 class CategoryList extends Component {
 
   render() {
   	const {categories} =this.props;
-  	//console.log(categories);
   	return (
   		<div>
       	{categories.map((category)=>{
-      		return <div className="category" key={category.name}>{category.name}</div>
+      		return <Link to={'/'+category.name} key={category.name}><div className="category">{category.name}</div></Link>
       	})}
       </div>
     );

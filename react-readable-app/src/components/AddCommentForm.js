@@ -6,18 +6,18 @@ import {addComment} from '../actions';
 import PropTypes from 'prop-types';
 
 class AddCommentForm extends Component {
+	/**
+	 *@description - This function will be called when adding comment that serialize
+	 * 								the form and send dispatch to add comment action
+	 */
 	handleSubmit = (e, postId) => {
 		e.preventDefault();
 		const value = serializeForm(e.target, {hash:true});
-		/*if(this.props.onCreateContact) {
-			this.props.onCreateContact(value);
-		}*/
 		value.id= uuidv4();
 		value.parentId = postId;
 		value.timestamp = new Date().getTime();
 		this.props.dispatch(addComment(value));
 		this.myFormRef.reset();
-//		console.log(value);
 	}
 
 	render() {
@@ -34,12 +34,8 @@ class AddCommentForm extends Component {
 	}
 }
 
-const mapStateToProps = ({}) => ({
-
-})
-
 AddCommentForm.propTypes = {
 	postId: PropTypes.string.isRequired
 }
 
-export default connect(mapStateToProps)(AddCommentForm)
+export default connect()(AddCommentForm)

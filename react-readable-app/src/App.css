@@ -109,7 +109,8 @@
   text-align: center;
 }
 .postFooter {
-  background-color: initial;
+  background-color: aquamarine;
+  margin-top: 10px;
 }
 
 .operator {
@@ -194,6 +195,17 @@ a {
 .commentTextArea {
   width: 95%;
   height: 60px;
+}
+
+.floatLeft {
+  float:left;
+}
+.clearFix {
+  clear:both;
+}
+
+.textCenter {
+  text-align: center;
 }
 
 

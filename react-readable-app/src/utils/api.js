@@ -1,4 +1,3 @@
-import {uuidv4} from './utils.js';
 
 const domain = "http://localhost:3001"
 //NEW
@@ -110,6 +109,30 @@ export const addPostApi = (post) => {
 	}).then((res)=>{return res.json()})
 		.then((data)=>{return data})
 }
+
+export const updatePostApi = (postId,post) => {
+	return fetch(domain+'/posts/'+postId,{
+		method: 'PUT',
+		headers: {
+			'Authorization': 'some',
+    	'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(post)
+	}).then((res)=>{return res.json()})
+		.then((data)=>{return data})
+}
+
+export const deletePostApi = (postId) => {
+	return fetch(domain+'/posts/'+postId,{
+		method: 'DELETE',
+		headers: {
+			'Authorization': 'some',
+    	'Content-Type': 'application/json'
+		}
+	}).then((res)=>{return res.json()})
+		.then((data)=>{return data})
+}
+
 
 
 

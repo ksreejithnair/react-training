@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../App.css';
 import CategoryList from './CategoryList.js';
 import PostsList from './PostsList.js';
@@ -10,8 +9,14 @@ import PostDetails from './PostDetails.js';
 import AddPost from './AddPost.js';
 import Modal from 'react-modal';
 
-//NEW
 class App extends Component {
+	/**
+	 * @description - This function will sort the post based on sortType and sortOrder
+	 *
+	 * @param {array} posts - posts
+	 * @param {string} sortType - Either 'vote' ot 'time'.
+	 * @param {string} sortOrder - Either 'ASC' or 'DSC'
+	 */
 	sortPosts = function(posts,sortType,sortOrder) {
 		this.props.dispatch(sortPosts(posts,sortType,sortOrder));
 	}
@@ -30,7 +35,6 @@ class App extends Component {
 	}
 
   render() {
-  	//console.log(this.props);
   	const {addPostModalOpen} = this.state;
   	return (
       <div className="App">
@@ -38,9 +42,9 @@ class App extends Component {
       		<Route path="/" exact render={()=>{
       			return <div>
       				<div className="header">
-      					<div className="right-aligned menu" onClick={this.openAddPostModal}>
+      					<button className="right-aligned menu" onClick={this.openAddPostModal}>
       						Add Post
-      					</div>
+      					</button>
 			      		<div className="right-aligned menu">
 			      			Sort By Vote
 			      			<div className="menuContent">
@@ -79,11 +83,46 @@ class App extends Component {
       		<Route path="/post/:id" render={({match, history})=>{
       			return <div>
       				<div className="header">
-			      		<div className="right-aligned menu" onClick={()=>{history.push('/')}}>
-			      			Back
-			      		</div>
+			      		<button className="floatLeft" onClick={()=>{history.goBack()}}>Back</button>
+			      		<div className="clearFix"></div>
 			      	</div>
 			      	<PostDetails postId={match.params.id}/>
+			      </div>
+      		}}/>
+      		<Route path="/:category" render={({match, history})=>{
+      			return <div>
+      				<div className="header">
+			      		<button className="floatLeft" onClick={()=>{history.goBack()}}>Back</button>
+
+			      		<button className="right-aligned menu" onClick={this.openAddPostModal}>
+      						Add Post
+      					</button>
+			      		<div className="right-aligned menu">
+			      			Sort By Vote
+			      			<div className="menuContent">
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'vote','ASC')}>vote Asc</span>
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'vote', 'DSC')}>Vote Dsc</span>
+				      		</div>
+			      		</div>
+			      		<div className="right-aligned menu">
+			      			Sort By Time
+			      			<div className="menuContent">
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'time','ASC')}>vote Asc</span>
+				      			<span onClick={()=>this.sortPosts(this.props.posts,'time', 'DSC')}>Vote Dsc</span>
+				      		</div>
+			      		</div>
+			      	</div>
+			      	<PostsList category={match.params.category}/>
+			      	<Modal
+			          className='Modal'
+			          overlayClassName='overlay'
+			          isOpen={addPostModalOpen}
+			          onRequestClose={this.closeAddPostModal}
+			          contentLabel='Modal'
+			          shouldCloseOnOverlayClick={true}
+			        >
+			        	<AddPost onCloseModal={()=>this.closeAddPostModal()}/>
+			        </Modal>
 			      </div>
       		}}/>
 	      </Switch>
@@ -93,8 +132,6 @@ class App extends Component {
   }
 }
 
-
-//TODO: move these conversion to a common function in utils so no need to repeat same code in all components
 const mapStateToProps = ({categories, posts})=>({
 		posts: Object.keys(posts).map((postKey)=>(posts[postKey])),
 		categories: Object.keys(categories).map((categoryKey)=>(categories[categoryKey]))

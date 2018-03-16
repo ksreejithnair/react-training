@@ -12,12 +12,9 @@ import Modal from 'react-modal';
 class PostDetails extends Component{
 
 	componentDidMount(){
+		//Fetching post and comments for post details page.
 		this.props.dispatch(fetchPost(this.props.postId));
 		this.props.dispatch(fetchPostComments(this.props.postId));
-		/*fetchPostCommentsApi(this.props.postId).then((data)=>{
-			//console.log(data);
-			this.setState({comments:data});
-		});*/
 	}
 
 	state = {
@@ -25,36 +22,17 @@ class PostDetails extends Component{
 		post: {},
 		editCommentModalOpen: false
 	}
-/*uthor: "thingtwo"
 
-body: "Hi there! I am a COMMENT."
-
-deleted: false
-
-id: "894tuq4ut84ut8v4t8wun89g"
-
-parentDeleted: false
-
-parentId: "8xf0y6ziyjabvozdd253nd"
-
-timestamp: 1468166872634
-
-voteScore: 6
-
-*/
 	openEditCommentModal = () => this.setState({editCommentModalOpen:true});
 	closeEditCommentModal = () => this.setState({editCommentModalOpen:false});
+
 	render(){
 		const {postsObj,postId,comments} = this.props;
-		//const {comments} = this.state;
 		const post = postsObj[postId];
 		const postedDate = post&&new Date(post.timestamp);
-		/*console.log(post&&typeof(postedDate));
-		console.log(this.state);
-		console.log(post);*/
 		return <div>
 			{post&&
-				<Post post={post}/>
+				<Post post={post} showEdit={true}/>
 			}
 			{
 				comments.map((comment)=>{

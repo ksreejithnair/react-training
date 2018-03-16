@@ -11,7 +11,9 @@ import {
 	UPDATE_COMMENT,
 	UPDATE_COMMENT_VOTE,
 	ADD_POST,
-	UPDATE_POST_VOTE
+	UPDATE_POST_VOTE,
+	UPDATE_POST,
+	DELETE_POST
 } from '../actions/index.js'
 
 //reducer for categories
@@ -29,6 +31,7 @@ function categories(state={},action) {
 	}
 }
 
+//Reducer for comments
 function comments(state={},action) {
 	const {comments,comment} = action;
 	switch(action.type) {
@@ -63,12 +66,9 @@ function posts (state={}, action) {
 				[post.id]:post
 			}
 		case SORT_POSTS:
-			//console.log('sort me');
-			//console.log(state);
 			posts.sort((post,nextPost)=>{
 				switch(sortType){
 					case 'vote':
-					//console.log(sortOrder);
 						if(post.voteScore > nextPost.voteScore) {
 							return sortOrder === "ASC"?1:-1;
 						}
@@ -90,9 +90,18 @@ function posts (state={}, action) {
 			});
 			return normalizePosts(posts);
 		case FETCH_POST:
-//			console.log(state);
 			return {...state,[post.id]:post};
 		case UPDATE_POST_VOTE:
+			return {
+				...state,
+				[post.id]:post
+			}
+		case UPDATE_POST:
+			return {
+				...state,
+				[post.id]:post
+			}
+		case DELETE_POST:
 			return {
 				...state,
 				[post.id]:post
@@ -101,7 +110,5 @@ function posts (state={}, action) {
 			return state;
 	}
 }
-
-//NEW
 
 export default combineReducers({categories,posts,comments})

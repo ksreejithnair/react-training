@@ -8,7 +8,9 @@ import {fetchAllCategories,
 				updateCommentApi,
 				updateCommentVoteApi,
 				addPostApi,
-				updatePostVoteApi} from '../utils/api.js'
+				updatePostVoteApi,
+				updatePostApi,
+				deletePostApi} from '../utils/api.js'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -19,6 +21,8 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPDATE_COMMENT_VOTE = 'UPDATE_COMMENT_VOTE';
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_POST_VOTE = 'UPDATE_POST_VOTE';
+export const UPDATE_POST = 'UPDATE_POST';
+export const DELETE_POST = 'DELETE_POST';
 
 export const receiveCategories = categories => ({
   type: RECEIVE_CATEGORIES,
@@ -65,6 +69,16 @@ export const addPostAction = post =>({
 	post
 })
 
+export const updatePostAction = post =>({
+	type: UPDATE_POST,
+	post
+})
+
+export const deletePost = post => ({
+	type: DELETE_POST,
+	post
+})
+
 export const fetchPost = (postId) => (dispatch) => {
 	return fetchPostApi(postId).then((data)=>dispatch(fetchPostAction(data)))
 }
@@ -100,6 +114,14 @@ export const updatePostVote = (postId,option) => (dispatch) => {
 
 export const addPost = (post) => (dispatch) =>{
 	return addPostApi(post).then((data)=>{dispatch(addPostAction(data))});
+}
+
+export const updatePost = (postId,post) => (dispatch) =>{
+	return updatePostApi(postId,post).then((data)=>{dispatch(updatePostAction(data))});
+}
+
+export const deletePostAction = (postId) => (dispatch) =>{
+	return deletePostApi(postId).then((data)=>{dispatch(deletePost(data))});
 }
 
 

@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {updatePostVote} from '../actions';
+import {updatePostVote,
+				deletePostAction
+				} from '../actions';
 import Modal from 'react-modal';
-import AddPost from './AddPost.js'
+import AddPost from './AddPost.js';
+import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 
 class Post extends Component {
@@ -14,10 +18,6 @@ class Post extends Component {
 
 	}
 
-	updatePost = () =>{
-
-		const value = {body:this.textarea.value};
-	}
 	closeEditModal = () => this.setState({editModalOpen:false});
 
 	updateVote = (e,postId,upOrDown) => {
@@ -25,25 +25,35 @@ class Post extends Component {
 		const option = {option:upOrDown};
 		this.props.dispatch(updatePostVote(postId, option))
 	}
+	deletePost = (postId) => {
+		this.props.dispatch(deletePostAction(postId));
+		this.props.history.goBack();
+	}
 	render() {
-		const {post} = this.props;
+		//const post = this.props.posts[this.props.post.id];
+		//console.log(this.props);
+		const {post,showEdit,fromPostList} = this.props;
+		if(post&&post.deleted === true) { return <Redirect to="/"/>}
 		const {editModalOpen} = this.state;
 		return <div className="postContainer">
+					<div className="postHeader">
+						<div>Posted By:<strong>{post.author}</strong>
+							<span className="floatRight">{new Date(post.timestamp).toLocaleString('en-US')}</span>
+						</div>
+					</div>
 					<h2 className="postTitle">{post.title}</h2>
-					<div>Posted:{post.timestamp}</div>
-					<div>{post.author}</div>
-					<div>{post.body}</div>
-					<div>Vote Score{post.voteScore}</div>
-					<div>{post.commentCount}</div>
+					{!fromPostList&&<div>{post.body}</div>}
 					<div className="commentFooter postFooter">
+						<span className="floatLeft">Total Comments: {post.commentCount}</span>
 						Vote Score
 						<span className="operator" onClick={(e)=>this.updateVote(e,post.id,'downVote')}>-</span>
 							{post.voteScore}
 						<span className="operator" onClick={(e)=>this.updateVote(e,post.id,'upVote')}>+</span>
-						<div className="floatRight">
-							<button className="marginRight5 smallButton" onClick={()=>this.setState({editModalOpen:true})}>Edit</button>
-							<button className="smallButton" onClick={this.deletePost}>Delete</button>
-						</div>
+						{showEdit && <div className="floatRight">
+							<button className="marginRight5 smallButton" onClick={()=>{Modal.setAppElement('body');
+									this.setState({editModalOpen:true})}}>Edit</button>
+							<button className="smallButton" onClick={()=>this.deletePost(post.id)}>Delete</button>
+						</div>}
 					</div>
 					<Modal
 	          className='Modal'
@@ -60,8 +70,8 @@ class Post extends Component {
 	}
 
 Post.propTypes = {
-	post: PropTypes.object.isRequired
+	post: PropTypes.object.isRequired,
+	showEdit: PropTypes.bool.isRequired
 }
 
-
-export default connect()(Post);
+export default withRouter(connect()(Post));

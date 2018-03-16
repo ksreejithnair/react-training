@@ -7,16 +7,31 @@ import Post from './Post.js'
 class PostsList extends Component {
 
   render() {
-  	const {posts} =this.props;
-  	//console.log(posts);
+  	const {posts,category} =this.props;
+    //If coming by clicking a category reucing the array to only that category.
+    let result = '';
+    if(category) {
+       result = posts.reduce((posts,post)=>{
+        if(post.category === category){
+          posts.push(post)
+          return posts;
+        } else
+          return posts;
+      },[])
+    } else {
+       result = posts;
+    }
+
   	return (
   		<div>
-      	{posts.map((post)=>{
-      		return <Link to={`/post/${post.id}`} activeStyle={{ color: 'yellow' }}>
-          <div key={post.id}>
-            <Post post={post}/>
+        {category&&<div className="textCenter"><h1>{category}</h1></div>}
+      	{result&&result.map((post)=>{
+          return !post.deleted&&<Link to={`/post/${post.id}`} key={post.id}>
+          <div>
+            <Post post={post} showEdit={false} fromPostList={true}/>
           </div></Link>
       	})}
+        {!result&& <div>No Post under this category</div>}
       </div>
     );
   }
