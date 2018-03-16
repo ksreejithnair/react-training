@@ -1,0 +1,211 @@
+.App {
+  width:1024px;
+  margin:auto;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.AppSidebar {
+  border: 1px solid red;
+  background-color: lightgray;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.AppBody {
+  display: -webkit-flex;
+    display: flex;
+    height: 100%;
+}
+.AppRBody {
+
+  border: 1px solid green;
+   -webkit-flex: 5;
+    flex: 5;
+}
+/*CategoryList*/
+.category {
+  width: 150px;
+  height: 30px;
+  margin: auto;
+  border: 1px solid #ccc;
+  line-height: 30px;
+}
+.header {
+  border: 1px solid #ececec;
+  text-align: right;
+}
+.right-aligned {
+  display: inline-block;
+  border: 0 0 0 1px;
+  border-color: solid #ececec;
+  margin: 10px;
+  background-color: red;
+}
+
+.menu:hover .menuContent{
+  display: block;
+}
+.menuContent span {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.menuContent span:hover {background-color: #f1f1f1}
+.menuContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.postContainer {
+  border: 1px solid #eee;
+  border-radius: 30px;
+  background-color: #aee;
+  padding: 25px;
+}
+
+.floatRight {
+  float:right;
+}
+
+.commentContainer {
+  border: 1px solid #e1f;
+  border-radius: 20px;
+  background-color: #eda;
+  padding: 0 20px;
+}
+
+.commentFooter {
+  background-color: #dce;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+.postFooter {
+  background-color: aquamarine;
+  margin-top: 10px;
+}
+
+.operator {
+  border: 1px solid black;
+    width: 25px;
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.addCommentForm {
+  border: 1px solid #e1f;
+  border-radius: 20px;
+  background-color: #85a;
+  padding: 0 20px;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.margin5{
+  margin: 5px;
+}
+
+.marginRight5 {
+  margin-right: 5px;
+}
+
+.addCommentForm label {
+  display: inline-block;
+  width: 150px;
+  margin-right: 30px;
+}
+
+.addCommentForm input {
+  height: 20px;
+}
+
+.addCommentForm textarea {
+  height: 75px;
+  width: 300px;
+}
+
+  .Modal {
+    position: absolute;
+    top: 140px;
+    left: 440px;
+    right: 440px;
+    bottom: 40px;
+    background-color: papayawhip;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+  }
+
+button {
+  width: 200px;
+  height: 35px
+}
+
+button.smallButton {
+  width: 60px;
+  height:20px;
+}
+
+a:link { color: black; }
+a:visited { color: black; }
+a {
+  text-decoration: none;
+}
+
+.postBodyTextArea {
+  width: 350px;
+  height: 90px;
+}
+
+.commentTextArea {
+  width: 95%;
+  height: 60px;
+}
+
+.floatLeft {
+  float:left;
+}
+.clearFix {
+  clear:both;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+
