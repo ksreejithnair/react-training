@@ -10,7 +10,9 @@ class PostsList extends Component {
   	const {posts,category} =this.props;
     //If coming by clicking a category reucing the array to only that category.
     let result = '';
+    let link = '/post/'
     if(category) {
+      link = '/'+category+'/';
        result = posts.reduce((posts,post)=>{
         if(post.category === category){
           posts.push(post)
@@ -26,12 +28,12 @@ class PostsList extends Component {
   		<div>
         {category&&<div className="textCenter"><h1>{category}</h1></div>}
       	{result&&result.map((post)=>{
-          return !post.deleted&&<Link to={`/post/${post.id}`} key={post.id}>
+          return !post.deleted&&<Link to={`${link}${post.id}`} key={post.id}>
           <div>
             <Post post={post} showEdit={false} fromPostList={true}/>
           </div></Link>
       	})}
-        {!result&& <div>No Post under this category</div>}
+        {result.length<=0&&<div>No Post under this category</div>}
       </div>
     );
   }

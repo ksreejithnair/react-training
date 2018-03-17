@@ -2,12 +2,12 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchPostComments,
 				fetchPost} from '../actions';
-import {fetchPostCommentsApi} from '../utils/api.js';
 import Post from './Post.js';
 import Comment from './Comment.js';
 import AddCommentForm from './AddCommentForm.js';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import NoMatch from './NoMatch.js'
 
 class PostDetails extends Component{
 
@@ -19,12 +19,8 @@ class PostDetails extends Component{
 
 	state = {
 		comments: [],
-		post: {},
-		editCommentModalOpen: false
+		post: {}
 	}
-
-	openEditCommentModal = () => this.setState({editCommentModalOpen:true});
-	closeEditCommentModal = () => this.setState({editCommentModalOpen:false});
 
 	render(){
 		const {postsObj,postId,comments} = this.props;
@@ -35,10 +31,11 @@ class PostDetails extends Component{
 				<Post post={post} showEdit={true}/>
 			}
 			{
-				comments.map((comment)=>{
+				post&&comments.map((comment)=>{
 					return !comment.deleted&&<Comment comment={comment} key={comment.id}/>
 				})}
-				<AddCommentForm postId={postId}/>
+				{post&&<AddCommentForm postId={postId}/>}
+				{!post&&<NoMatch/>}
 
 		</div>
 	}

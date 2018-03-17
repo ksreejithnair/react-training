@@ -3,11 +3,12 @@ import '../App.css';
 import CategoryList from './CategoryList.js';
 import PostsList from './PostsList.js';
 import {connect} from 'react-redux';
-import {SORT_TYPE, sortPosts} from '../actions';
-import {withRouter,Switch, Route} from 'react-router-dom';
+import {sortPosts} from '../actions';
+import {withRouter,Switch, Route,BrowserRouter} from 'react-router-dom';
 import PostDetails from './PostDetails.js';
 import AddPost from './AddPost.js';
 import Modal from 'react-modal';
+import NoMatch from './NoMatch.js'
 
 class App extends Component {
 	/**
@@ -39,6 +40,7 @@ class App extends Component {
   	return (
       <div className="App">
       	<Switch>
+
       		<Route path="/" exact render={()=>{
       			return <div>
       				<div className="header">
@@ -80,7 +82,7 @@ class App extends Component {
 			        </Modal>
 				  	</div>
       		}}/>
-      		<Route path="/post/:id" render={({match, history})=>{
+					<Route exact path="/:category/:id" exact render={({match, history})=>{
       			return <div>
       				<div className="header">
 			      		<button className="floatLeft" onClick={()=>{history.goBack()}}>Back</button>
@@ -89,7 +91,7 @@ class App extends Component {
 			      	<PostDetails postId={match.params.id}/>
 			      </div>
       		}}/>
-      		<Route path="/:category" render={({match, history})=>{
+      		<Route exact path="/:category" render={({match, history})=>{
       			return <div>
       				<div className="header">
 			      		<button className="floatLeft" onClick={()=>{history.goBack()}}>Back</button>
@@ -125,6 +127,7 @@ class App extends Component {
 			        </Modal>
 			      </div>
       		}}/>
+
 	      </Switch>
 
       </div>
