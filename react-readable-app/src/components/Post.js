@@ -14,9 +14,6 @@ class Post extends Component {
 	state = {
 		editModalOpen: false
 	}
-	deletePost = () => {
-
-	}
 
 	closeEditModal = () => this.setState({editModalOpen:false});
 

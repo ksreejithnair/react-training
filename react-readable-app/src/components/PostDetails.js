@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchPostComments,
 				fetchPost} from '../actions';
-import {fetchPostCommentsApi} from '../utils/api.js';
 import Post from './Post.js';
 import Comment from './Comment.js';
 import AddCommentForm from './AddCommentForm.js';
@@ -20,12 +19,8 @@ class PostDetails extends Component{
 
 	state = {
 		comments: [],
-		post: {},
-		editCommentModalOpen: false
+		post: {}
 	}
-
-	openEditCommentModal = () => this.setState({editCommentModalOpen:true});
-	closeEditCommentModal = () => this.setState({editCommentModalOpen:false});
 
 	render(){
 		const {postsObj,postId,comments} = this.props;

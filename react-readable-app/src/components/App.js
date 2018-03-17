@@ -3,7 +3,7 @@ import '../App.css';
 import CategoryList from './CategoryList.js';
 import PostsList from './PostsList.js';
 import {connect} from 'react-redux';
-import {SORT_TYPE, sortPosts} from '../actions';
+import {sortPosts} from '../actions';
 import {withRouter,Switch, Route,BrowserRouter} from 'react-router-dom';
 import PostDetails from './PostDetails.js';
 import AddPost from './AddPost.js';
