@@ -17,7 +17,7 @@ class AddDeck extends Component{
 	}
 
 	handleSubmit() {
-		console.log(this.state.deckName);
+		//console.log(this.state.deckName);
 		let deck = {
 			title: this.state.deckName,
 			questions: []
@@ -33,7 +33,7 @@ class AddDeck extends Component{
 	}
 
 	handleTextChange (deckName) {
-		console.log(deckName);
+		//console.log(deckName);
 		//this.setSate({deckName});
 	}
 

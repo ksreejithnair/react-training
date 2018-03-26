@@ -5,11 +5,12 @@ import {
 } from 'react-native';
 import Decks from '../Components/Decks.js'
 import AddDeck from '../Components/AddDeck.js'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { fetchDecksApi, addDeck, addDecks, addCard } from '../utils/api.js'
 import { connect } from 'react-redux'
 import { receivedDecksAction } from '../actions'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import DeckDetails from './DeckDetails.js'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -45,6 +46,18 @@ const Tabs = TabNavigator({
   }
 });
 
+const Stack = StackNavigator({
+  Home: {
+    screen: Tabs,
+    navigationOptions: {
+      header:false
+    }
+  },
+  DeckDetails: {
+    screen: DeckDetails
+  }
+})
+
 class Main extends Component {
 	componentDidMount() {
 		fetchDecksApi('decks').then((data)=>{
@@ -56,7 +69,7 @@ class Main extends Component {
 	}
 
 	render(){
-		return <Tabs/>
+		return <Stack/>
 	}
 }
 
