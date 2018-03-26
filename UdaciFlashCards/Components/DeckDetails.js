@@ -16,6 +16,7 @@ class DeckDetails extends Component{
 	}
 
 	render() {
+		console.log("inside deck details");
 		const title = this.props.navigation.state.params&&this.props.navigation.state.params.title;
 		const{decks,decksObj} = this.props;
 		const deck = decksObj[title];

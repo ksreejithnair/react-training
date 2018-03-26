@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { addDeck, addCardApi, fetchDecksApi } from '../utils/api.js'
 import { connect } from 'react-redux'
+import {fetchDecks} from '../actions'
 
 
 class AddCard extends Component {
@@ -23,7 +24,8 @@ class AddCard extends Component {
 			title:this.props.navigation.state.params.title, 
 			card:{question:this.state.question, answer:this.state.answer}
 		}).then(()=>{
-			fetchDecksApi().then(()=>{
+			this.props.dispatch(fetchDecks()).then(()=>{
+				//console.log('fetch after add');
 				this.props.navigation.goBack();
 			})
 		})
@@ -71,4 +73,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default AddCard;
+export default connect()(AddCard);
