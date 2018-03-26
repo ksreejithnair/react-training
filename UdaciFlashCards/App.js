@@ -4,7 +4,26 @@ import Decks from './Components/Decks.js'
 import AddDeck from './Components/AddDeck.js'
 import { TabNavigator } from 'react-navigation'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
+import { fetchDecks, addDeck, addDecks, addCard } from './utils/api.js'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducers/index.js'
+import Main from './Components/Main.js'
+/*
+const refresh = (obj)=>{
+  if(obj.scene.route.key == 'Decks') {
+    fetchDecks('decks').then((data)=>{
+        data=JSON.parse(data);
+         console.log(data);
+      obj.jumpToIndex(obj.scene.index);
+    })
+  }
+  else {
+    obj.jumpToIndex(obj.scene.index);
+  }
+  console.log(obj)
+}
 
 const Tabs = TabNavigator({
   Decks: {
@@ -14,7 +33,7 @@ const Tabs = TabNavigator({
       tabBarIcon: ()=><MaterialCommunityIcons name='cards-variant' size={30} color='#000000'/>
     }
   },
-  AddDeck: {
+  AddDecks: {
     screen: AddDeck,
     navigationOption: {
       tabBarLabel: 'Add New Deck'
@@ -22,7 +41,7 @@ const Tabs = TabNavigator({
   }
 },{
   navigationOptions: {
-    header: null
+    tabBarOnPress: refresh
   },
   tabBarOptions: {
     activeTintColor: '#000',
@@ -39,11 +58,16 @@ const Tabs = TabNavigator({
     }
   }
 });
-
-export default class App extends React.Component {
+*/
+//class App extends React.Component {
+/*
+  state = {
+    decks: {}
+  }
 
   componentDidMount(){
-    this.setState({
+    
+    /*addDecks({
       React: {
         title: 'React',
         questions: [
@@ -66,15 +90,59 @@ export default class App extends React.Component {
           }
         ]
       }
+    });
+
+    addDeck({
+        title: 'Java',
+        questions: [
+          {
+            question: 'What is a closure?',
+            answer: 'The combination of a function and the lexical environment within which that function was declared.'
+          }
+        ]
+      },'Java')
+    addCard({
+      title: 'Java',
+      card:{
+            question: 'What is a closure?',
+            answer: 'The combination of a function and the lexical environment within which that function was declared.'
+          }
+    }).then(()=>{
+      const decksFromStorage = fetchDecks('decks').then((data)=>{
+        console.log(data);
+      })
     })
+
+
+    fetchDecks('decks').then((data)=>{
+        data=JSON.parse(data);
+        this.setState({decks:data});
+
+      });
+    
+   //console.log(decksFromStorage);
   }
 
+  refresh() {
+    console.log('refresh called');
+  }
+*/
+class App extends React.Component {
   render() {
+
+    //const {decks} = this.props;
+    //console.log(decks);
     return (
-      <Tabs />
+      <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+        
+          <Main/>
+
+      </Provider>
     );
   }
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
