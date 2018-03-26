@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { receivedDecksAction } from '../actions'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import DeckDetails from './DeckDetails.js'
+import AddCard from './AddCard.js'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -55,6 +56,9 @@ const Stack = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails
+  },
+  AddCard: {
+    screen: AddCard
   }
 })
 

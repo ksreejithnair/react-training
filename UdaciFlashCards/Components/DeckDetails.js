@@ -2,12 +2,18 @@ import React,{ Component } from 'react'
 import { 
 	View, 
 	Text,
-	StyleSheet
+	StyleSheet,
+	TouchableOpacity,
+	Button
 
 } from 'react-native'
 import { connect } from 'react-redux'
 
 class DeckDetails extends Component{
+
+	goToAddCard(title){
+		this.props.navigation.navigate('AddCard', {title});
+	}
 
 	render() {
 		const title = this.props.navigation.state.params&&this.props.navigation.state.params.title;
@@ -16,6 +22,14 @@ class DeckDetails extends Component{
 		return <View style={styles.container}>
 			<Text style={styles.heading}>{deck&&deck.title}</Text>
 			<Text >{`${deck&&deck.questions.length} Cards`}</Text>
+			<TouchableOpacity onPress={()=>{this.goToAddCard(deck.title)}}>
+				<View style={styles.addCardBtn}><Text style={styles.btnText}>Add Cards</Text></View>
+			</TouchableOpacity>
+
+			<TouchableOpacity>
+				<View style={[styles.addCardBtn,styles.startQuiz]}><Text style={[styles.btnText,styles.whiteTxt]}>Add Cards</Text></View>
+			</TouchableOpacity>
+
 		</View>
 	}
 }
@@ -42,5 +56,25 @@ const styles = StyleSheet.create({
 	heading: {
 		fontSize: 20,
 		fontWeight: 'bold'
+	},
+	addCardBtn: {
+		width: 180,
+		height: 40,
+		borderColor: '#000',
+		borderWidth: 1,
+		borderRadius: 10,
+		marginTop: 20,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	btnText: {
+		fontWeight: 'bold'
+	},
+	startQuiz: {
+		backgroundColor: '#000'
+	},
+	whiteTxt: {
+		color: '#fff'
 	}
+
 })

@@ -25,6 +25,7 @@ class AddDeck extends Component{
 		//console.log(deck);
 		addDeck(deck,this.state.deckName).then((data)=>{
 			this.props.dispatch(fetchDecks()).then(()=>{
+				this.setState({deckName:''});
 				this.props.navigation.navigate('Decks')
 			})
 			

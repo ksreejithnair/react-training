@@ -19,8 +19,8 @@ export function addDecks(entry) {
   ))
 }
 
-export function addCard({title, card}) {
-	//console.log(title);
+export function addCardApi({title, card}) {
+	console.log(card);
 	return AsyncStorage.getItem(FLASH_CARD_STORAGE_KEY)
 		.then((data)=>{
 			let deckOfTitle = JSON.parse(data)[title];
@@ -28,6 +28,6 @@ export function addCard({title, card}) {
 			console.log(deckOfTitle);
 			AsyncStorage.mergeItem(FLASH_CARD_STORAGE_KEY, JSON.stringify({
 				[title]: deckOfTitle
-			})).then((data)=>data);
+			})).then((data)=>{console.log(data);return data});
 		})
 }

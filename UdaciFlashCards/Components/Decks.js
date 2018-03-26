@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 class Decks extends React.Component {
 
 	goToDeckDetails(deckTitle) {
-		console.log(deckTitle);
+		//console.log(deckTitle);
 		this.props.navigation.navigate('DeckDetails',{
 			title:deckTitle
 		});
@@ -23,6 +23,7 @@ class Decks extends React.Component {
 	render() {
 		const {decks} = this.props;
 		//console.log(decks);
+		
 		
 		return <FlatList
 			contentContainerStyle={styles.mainContainer}
