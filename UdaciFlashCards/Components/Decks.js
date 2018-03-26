@@ -14,7 +14,7 @@ class Decks extends React.Component {
 	
 	render() {
 		const {decks} = this.props;
-		console.log(decks);
+		//console.log(decks);
 		
 		return <FlatList
 			contentContainerStyle={styles.mainContainer}
@@ -33,6 +33,7 @@ class Decks extends React.Component {
 }
 
 const mapStateToProps = ({decks})=>{
+	console.log(decks);
 	return {
 		decks: decks&&Object.keys(decks).reduce((acc, item)=>{
 			acc.push(decks[item])

@@ -48,7 +48,7 @@ const Tabs = TabNavigator({
 class Main extends Component {
 	componentDidMount() {
 		fetchDecksApi('decks').then((data)=>{
-        	data=JSON.parse(data);
+        	//data=JSON.parse(data);
           //console.log(data);
         	this.props.dispatch(receivedDecksAction({decks:data}));
         	this.setState({decks:data});

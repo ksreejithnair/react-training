@@ -4,7 +4,7 @@ const FLASH_CARD_STORAGE_KEY = 'FlashCardStorageKey1'
 
 export function fetchDecksApi () {
   return AsyncStorage.getItem(FLASH_CARD_STORAGE_KEY)
-    .then((data)=>data)
+    .then((data)=>JSON.parse(data))
 }
 
 export function addDeck(entry, title) {

@@ -8,7 +8,7 @@ export const receivedDecksAction = (decks)=>({
 })
 
 export const fetchDecks = ()=>dispatch=> {
-	return fetchDecksApi().then((data)=>{console.log(data)})
+	return fetchDecksApi().then((data)=>{dispatch(receivedDecksAction({decks:data}))})
 }
 
 
