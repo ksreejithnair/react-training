@@ -5403,6 +5403,12 @@ react-navigation@^1.5.8:
     react-native-safe-area-view "^0.7.0"
     react-native-tab-view "github:react-navigation/react-native-tab-view"
 
+react-notification@^6.8.2:
+  version "6.8.2"
+  resolved "https://registry.yarnpkg.com/react-notification/-/react-notification-6.8.2.tgz#5d9910cc2993bd51a234d3809e94a98dc490cfb0"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"

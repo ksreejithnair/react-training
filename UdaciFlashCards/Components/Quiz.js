@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import FlipCard from 'react-native-flip-card'
 import { connect } from 'react-redux'
+import { setLocalNotification,  clearLocalNotifications} from '../utils/utils.js'
 
 class Quiz extends Component {
 
@@ -35,6 +36,7 @@ class Quiz extends Component {
 
 	//Assuming all answers in card are correct.
 	nextQuestion(choice){
+		clearLocalNotifications().then(setLocalNotification);
 		this.setState((state)=>{
 			console.log(state.currQuestion);
 
