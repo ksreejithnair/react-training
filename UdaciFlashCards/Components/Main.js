@@ -9,22 +9,24 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { fetchDecksApi, addDeck, addDecks, addCard } from '../utils/api.js'
 import { connect } from 'react-redux'
 import { receivedDecksAction } from '../actions'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import DeckDetails from './DeckDetails.js'
 import AddCard from './AddCard.js'
+import Quiz from './Quiz.js'
 
 const Tabs = TabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions: {
-      tabBarLabel: 'Decks',
-      tabBarIcon: ()=><MaterialCommunityIcons name='cards-variant' size={30} color='#000000'/>
+      tabBarLabel: ({tintColor})=><View><Text style={{ color: tintColor }}>DECKS</Text></View>,
+      tabBarIcon: ({tintColor})=><MaterialCommunityIcons name='cards-variant' size={20} color={tintColor}/>
     }
   },
   AddDecks: {
     screen: AddDeck,
-    navigationOption: {
-      tabBarLabel: 'Add New Deck'
+    navigationOptions: {
+      tabBarLabel: ({tintColor})=><View><Text style={{ color: tintColor }}>NEW DECK</Text></View>,
+      tabBarIcon: ({tintColor})=><MaterialIcons name='playlist-add' size={20} color={tintColor}/>
     }
   }
 },{
@@ -55,10 +57,22 @@ const Stack = StackNavigator({
     }
   },
   DeckDetails: {
-    screen: DeckDetails
+    screen: DeckDetails,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.params.title,
+    })
   },
   AddCard: {
-    screen: AddCard
+    screen: AddCard,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Add Card',
+    })
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Quiz',
+    })
   }
 })
 

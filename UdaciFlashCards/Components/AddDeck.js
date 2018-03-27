@@ -4,7 +4,7 @@ import {
 	Text,
 	StyleSheet,
 	TextInput,
-	Button 
+	TouchableOpacity 
 } from 'react-native'
 import { addDeck } from '../utils/api.js'
 import { connect } from 'react-redux'
@@ -23,13 +23,17 @@ class AddDeck extends Component{
 			questions: []
 		}
 		//console.log(deck);
-		addDeck(deck,this.state.deckName).then((data)=>{
-			this.props.dispatch(fetchDecks()).then(()=>{
-				this.setState({deckName:''});
-				this.props.navigation.navigate('Decks')
+		if(this.state.deckName) {
+			addDeck(deck,this.state.deckName).then((data)=>{
+				this.props.dispatch(fetchDecks()).then(()=>{
+					this.setState({deckName:''});
+					this.props.navigation.navigate('Decks')
+				})
+				
 			})
-			
-		})
+		} else {
+			this.props.navigation.navigate('Decks');
+		}
 		//this.props.dispatch()
 	}
 
@@ -41,8 +45,10 @@ class AddDeck extends Component{
 	render(){
 		return <View style={styles.mainContainer}>
 			<Text style={styles.question}>What is the title of your new deck?</Text>
-			<TextInput onChangeText={(deckName)=>this.setState({deckName})} value={this.state.deckName} placeholder="Deck NAme"/>
-			<Button value="submit" title="submit" onPress={()=>this.handleSubmit()}/>
+			<TextInput style={styles.input} onChangeText={(deckName)=>this.setState({deckName})} value={this.state.deckName} placeholder="Deck NAme"/>
+			<TouchableOpacity style={styles.button} onPress={()=>this.handleSubmit()}>
+				<View><Text style={styles.btnText}>Submit</Text></View>
+			</TouchableOpacity>
 		</View>
 	}
 }
@@ -58,7 +64,31 @@ const styles = StyleSheet.create({
 	question: {
 		fontSize: 48,
 		fontWeight: 'bold',
-		textAlign: 'center'
+		textAlign: 'center',
+		marginBottom: 30
+	},
+	input:{
+		borderWidth: 1,
+		borderColor: '#000',
+		height: 40,
+		width: 250,
+		borderRadius: 5,
+		padding: 5,
+		marginBottom: 20
+	},
+	button:{
+		width: 180,
+		height: 40,
+		borderColor: '#000',
+		borderWidth: 1,
+		borderRadius: 10,
+		marginTop: 20,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#000'
+	},
+	btnText: {
+		color: '#fff',
+		fontWeight: 'bold'
 	}
-
 })

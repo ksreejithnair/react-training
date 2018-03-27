@@ -15,6 +15,10 @@ class DeckDetails extends Component{
 		this.props.navigation.navigate('AddCard', {title});
 	}
 
+	goToQuiz(title){
+		this.props.navigation.navigate('Quiz', {title});
+	}
+
 	render() {
 		console.log("inside deck details");
 		const title = this.props.navigation.state.params&&this.props.navigation.state.params.title;
@@ -27,10 +31,11 @@ class DeckDetails extends Component{
 				<View style={styles.addCardBtn}><Text style={styles.btnText}>Add Cards</Text></View>
 			</TouchableOpacity>
 
-			<TouchableOpacity>
-				<View style={[styles.addCardBtn,styles.startQuiz]}><Text style={[styles.btnText,styles.whiteTxt]}>Add Cards</Text></View>
-			</TouchableOpacity>
-
+			{deck&&deck.questions.length>0&&(<TouchableOpacity onPress={()=>{this.goToQuiz(deck.title)}}>
+				<View style={[styles.addCardBtn,styles.startQuiz]}>
+					<Text style={[styles.btnText,styles.whiteTxt]}>Start Quiz</Text>
+				</View>
+			</TouchableOpacity>)}
 		</View>
 	}
 }
