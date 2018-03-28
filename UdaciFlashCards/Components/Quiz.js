@@ -20,7 +20,7 @@ class Quiz extends Component {
 	}
 
 	componentDidMount(){
-		const title = this.props.navigation.state.params&&this.props.navigation.state.params.title;
+		const title = this.props.navigation.state.params && this.props.navigation.state.params.title;
 
 		if(title) {
 			console.log(this.props.decksObj[title]);
@@ -46,6 +46,19 @@ class Quiz extends Component {
 				showScore: state.questions.length-1 == state.currQuestion? true:false
 			}
 		})
+	}
+
+	restartQuiz() {
+		this.setState((state)=>{
+			return {
+				currQuestion: 0,
+				correctAnswer: 0,
+				showScore: false
+			}
+		})
+	}
+	goBack() {
+		this.props.navigation.goBack();
 	}
 
 	render() {
@@ -101,6 +114,14 @@ class Quiz extends Component {
 			{showScore&&<View style={styles.flipCardContainer}>
 					<Text style={styles.scoreHeading}>Your Score is </Text>
 					<Text style={styles.score}>{correctAnswer}/{questions.length}</Text>
+					<TouchableOpacity onPress={()=>this.restartQuiz()}>
+				    	<View style={[styles.Btn, styles.correctBtn]}><Text style={styles.btnText}>Start Over The Quiz</Text></View>
+				    </TouchableOpacity>
+				    <TouchableOpacity onPress={()=>this.goBack()}>
+				    	<View style={[styles.Btn, styles.incorrectBtn]}>
+				    		<Text style={styles.btnText}>Go Back</Text>
+				    	</View>
+				    </TouchableOpacity>
 				</View>
 			}
 			</View>
